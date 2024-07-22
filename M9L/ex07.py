@@ -30,7 +30,7 @@ def ler_matriz_quadrada():
             continue
         
         # Verifica se todos os elementos são números inteiros
-        if all(num_str.lstrip('-').isdigit() for num_str in numeros_str):
+        elif all(num_str.lstrip('-').isdigit() for num_str in numeros_str):
             numeros = [int(num_str) for num_str in numeros_str]
             matriz.append(numeros)
         else:
