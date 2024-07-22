@@ -1,37 +1,47 @@
-# 9. Escreva uma função que dada uma matriz quadrada, verifique se ela é uma matriz 
-# triangular superior.
+# 11. O seno de um ângulo em radianos, no intervalo de 0 à 2  pode ser calculado através 
+# da série de McLaurin, apresentada a seguir:  + − + − = ! 7 ! 5 ! 3 ! 1 sen 7 5 3 x x x x x 
+# a. Escreva uma função que converta um ângulo em graus para seu valor em 
+# radianos ( rad 180  =  ) 
+# b. Escreva uma função que receba como parâmetro um ângulo em graus, a precisão 
+# requerida para o cálculo e retorne o seu seno, utilizando a função de conversão 
+# graus-radiano feita anteriormente 
+# c. Faça um programa que teste a sua função para cálculo do seno. 
 
-def is_triangular_superior(matrix):
-    n = len(matrix)
-    # Começa em 1 para não pegar a diagonal principal
-    for i in range(1, n):
-        for j in range(i):
-            
-            # Caso queira ver em detalhes, descomente essa seção de prints:
+# a
+def graus_para_radianos(graus):
+    pi = 3.141592653589793
+    return graus * (pi / 180)
 
-            # print("j: ",j)
-            # print("i: ",i)
-            # print("matrix[i][j]: ",matrix[i][j])
-            # print("-"*15)
 
-            print(matrix)
-            if matrix[i][j] != 0:
-                return False
-                
-    return True
+# b
 
-# Teste
-matriz1 = [
-    [1, 2, 3],
-    [0, 5, 6],
-    [0, 0, 9]
-]
+def fatorial(n):
+    if n == 0:
+        return 1
+    resultado = 1
+    for i in range(2, n + 1):
+        resultado *= i
+    return resultado
 
-matriz2 = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [0, 0, 9]
-]
+def seno_mc_laurin(angulo_graus, precisao):
+    angulo_rad = graus_para_radianos(angulo_graus)
+    seno = 0
+    termo = angulo_rad
+    n = 0
+    
+    while abs(termo) > precisao:
+        termo = ((-1) ** n) * (angulo_rad ** (2 * n + 1)) / fatorial(2 * n + 1)
+        seno += termo
+        n += 1
+    
+    return seno
 
-print(is_triangular_superior(matriz1))
-print(is_triangular_superior(matriz2))
+def main():
+    angulo_graus = float(input("Digite o ângulo em graus: "))
+    precisao = float(input("Digite a precisão requerida: "))
+    
+    seno_calculado = seno_mc_laurin(angulo_graus, precisao)
+    
+    print("Seno calculado para {} graus com precisão {}: {}".format(angulo_graus, precisao, seno_calculado))
+
+main()
