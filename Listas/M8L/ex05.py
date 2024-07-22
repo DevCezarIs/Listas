@@ -12,7 +12,7 @@ def listOrganizer():
         elemento = input("Adicione um elemento à lista: ")
         if elemento == "":
             break
-        if elemento not in lista:
+        elif elemento not in lista:
             lista.append(elemento)
             elementos_adicionados += 1
             print(f'Elemento "{elemento}" adicionado.')
